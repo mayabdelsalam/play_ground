@@ -1,10 +1,11 @@
 # Purpose 
 
 This document describes Firebase and how it works, ELFI gui threads and code flow chart
+
 ## Table of Contents
 * [What is Firebase](#What-is-Firebase)
 * [Firebase Realtime Database](#Firebase-Realtime-Database)
-* [Project Firebase Structure](#project-firebase-structure)
+* [Firebase vs Google Cloud Storage](#Firebase-vs-Google-Cloud-Storage)
 * [Code FlowChart and Logic Explanation](#code-flowchart-and-logic-explanation)
 * [Errors Causes and Solutions](#the-errors-causes-and-solutions)
 
@@ -43,32 +44,8 @@ The Realtime Database is really just one big JSON object that the developers can
   Security and data validation are available through the Firebase Realtime Database Security Rules, expression-based rules that are executed when data is read or written.
  
 
-<p align="center">
-  <img src="/Gateway_Node/Images/2.jpg">
-</p>
 
-3. If Firebase Arduino library is successfully added, it shows in Include Library, Now, Login the Google Firebase using your Google account. Create a Firebase project by clicking Add project.
- 
- <p align="center">
-  <img img src="/Gateway_Node/Images/3.jpg" width=300 height=380 />
-  <img img src="/Gateway_Node/Images/4.jpg" width=300 height=380 /> 
-</p>
- 
-4. Click, Project Overview setting where you will find your project's detail. Now, click on Service accounts option to view database secrets.
-   
-   A program on arduino IDE to connect NodeMCU and Google Click, File > Examples > FirebaseArduino > FirebaseDemo_ESP8266
-  
-   Click on Project Overview > Project Settings > Service Account > Database secrets to view firebase auth secrets, add this secret to your Arduino program's FIREBASE_AUTH.
-   
-   Go to database section at left-menu and search for Realtime Database, where you find the Firebase host URL. Copy this URL without "https://" and "/" the at end and paste it at FIREBASE_HOST in the program.
-   
-   Add Realtime database in your project, click Project Overview setting > Realtime Database.
-
-![](/Gateway_Node/Images/5.jpg)
-
-5. Add your WIFI name and password in WIFI_SSID & WIFI_PASSWORD respectively,then write the code sequence and build it.
-
-## Project Firebase Structure. 
+## Firebase vs Google Cloud Storage
 <p align="center">
   <img src="/Gateway_Node/Images/FirebaseChannels.PNG">
 </p>
