@@ -61,10 +61,11 @@ The Realtime Database is really just one big JSON object that the developers can
 
 ### Create your Firebase Database
 
-Firebase website -->> https://firebase.google.com/
+1. Firebase website -->> https://firebase.google.com/
+2. Press Get started Button
 
 <p align="center">
-  <img src="./1_kiliGRYQIVzsCTx_JsUYdg.png">
+  <img src="./1.JPG">
 </p>
 
 ## FirebaseTrial.py
