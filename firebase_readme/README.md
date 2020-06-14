@@ -172,7 +172,7 @@ FirebaseTrial.py is the script used to:
 
 ### Connect python script to Firebase Database
 
-```ino
+```py
    config = {
   "apiKey": "AIzaSyCLVYhUGxHVeIfLW8DkWPZy7kBu4f1-79o",
   "authDomain": "fota-905e1.firebaseapp.com",
