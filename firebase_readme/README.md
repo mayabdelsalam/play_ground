@@ -144,6 +144,26 @@ The Realtime Database is really just one big JSON object that the developers can
   <img src="./15.JPG">
 </p>
 
+### Access your project's inf
+
+* Press on the icone shown below
+
+<p align="center">
+  <img src="./16.JPG">
+</p>
+
+* Get your Web API Key which is used to connect the gateway to firebase
+
+<p align="center">
+  <img src="./17.JPG">
+</p>
+
+* Get Firebase SDK snippet used in the pythone script used to upload and download frames
+
+<p align="center">
+  <img src="./18.JPG">
+</p> 
+
 
 
 
