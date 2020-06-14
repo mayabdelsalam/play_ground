@@ -25,8 +25,7 @@ Firebase is a mobile and web app development platform that provides developers w
   Firebase is a cloud service designed to power real-time, collaborative applications. 
   Simply add the Firebase library to your application to gain access to a shared data structure; any changes you make to that data are automatically synchronized with the Firebase cloud and with other clients within milliseconds.
 
-* **Google Cloud Storage**  :   
-  Durable and highly available object storage service. 
+* **Google Cloud Storage**  :   Durable and highly available object storage service. 
   Google Cloud Storage allows world-wide storing and retrieval of any amount of data and at any time. 
   It provides a simple programming interface which enables developers to take advantage of Google's own reliable and fast networking infrastructure to perform data operations in a secure and cost effective manner. 
 
