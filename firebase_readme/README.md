@@ -19,7 +19,7 @@ Firebase is a mobile and web app development platform that provides developers w
 ## Firebase Realtime Database
 
 The Firebase Realtime Database is a cloud-hosted database. 
-Data is stored as JSON and synchronized in realtime to every connected client. When you build cross-platform apps with our iOS, Android, and JavaScript SDKs, all of your clients share one Realtime Database instance and automatically receive updates with the newest data.
+Data is stored as JSON and synchronized in realtime to every connected client. When you build cross-platform apps with iOS, Android, and JavaScript SDKs, all of your clients share one Realtime Database instance and automatically receive updates with the newest data.
 
 The Realtime Database is really just one big JSON object that the developers can manage in realtime.
 
@@ -27,6 +27,12 @@ The Realtime Database is really just one big JSON object that the developers can
   <img src="./1_kiliGRYQIVzsCTx_JsUYdg.png">
 </p>
 
+
+### Key capabilities
+
+* **Realtime**  : 
+  Instead of typical HTTP requests, the Firebase Realtime Database uses data synchronization—every time data changes, any connected device receives that update within milliseconds. 
+  Provide collaborative and immersive experiences without thinking about networking code.
 
 
 
