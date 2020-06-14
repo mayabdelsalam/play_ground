@@ -59,15 +59,24 @@ The Realtime Database is really just one big JSON object that the developers can
   Security and data validation are available through the Firebase Realtime Database Security Rules, expression-based rules that are executed when data is read or written.
  
 
+### Create your Firebase Database
+
+Firebase website -->> https://firebase.google.com/
+
+<p align="center">
+  <img src="./1_kiliGRYQIVzsCTx_JsUYdg.png">
+</p>
 
 ## FirebaseTrial.py
 
 FirebaseTrial.py is the script used to:
 1. Upload Marker, Erase, Verify and Data frames to our firebase database. 
 2. Download and check the responses uploaded to the firebase via the Gateway. 
-<p align="center">
-  <img src="/Gateway_Node/Images/FirebaseChannels.PNG">
-</p>
+
+### Connect python script to Firebase Database
+
+
+
 
 * **FlashNewApp**         : Indicates that a New Flashing Sequence is about to start.
 * **Frame**               : Holds the Current Frame which is one of Four options **Data Command** or **Erase Command** or **Verification Command** or **Response Command**
