@@ -192,6 +192,18 @@ db = firebase.database()
 
 
 
+* Set value for a certain chiled, or to create the child  
+
+```py
+  db.child("NodeMCUSemaphore").set(False)
+```
+
+* Get value of a particuler child
+```py
+result = db.child("NodeMCUs").get()
+if (result.val() ==  "No_Target_Connected"):
+```
+
 
 
 
