@@ -62,9 +62,9 @@ The Realtime Database is really just one big JSON object that the developers can
 
 ## FirebaseTrial.py
 
-FirebaseTrial.py is the script used to 
-1- Upload Marker, Erase, Verify and Data frames to our firebase database. 
-2- Download and check the responses uploaded to the firebase via the Gateway. 
+FirebaseTrial.py is the script used to:
+1. Upload Marker, Erase, Verify and Data frames to our firebase database. 
+2. Download and check the responses uploaded to the firebase via the Gateway. 
 <p align="center">
   <img src="/Gateway_Node/Images/FirebaseChannels.PNG">
 </p>
