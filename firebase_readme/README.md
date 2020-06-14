@@ -81,11 +81,39 @@ The Realtime Database is really just one big JSON object that the developers can
   <img src="./3.JPG">
 </p>
 
-6.
+6. Press Continue
 
 <p align="center">
   <img src="./4.JPG">
 </p>
+
+7. Name your Firebase Acoount
+
+<p align="center">
+  <img src="./6.JPG">
+</p>
+
+8. Choose your Analytics location
+9. Accept the terms and policy
+
+<p align="center">
+  <img src="./7.JPG">
+</p>
+
+10. Press Create project
+
+<p align="center">
+  <img src="./8.JPG">
+</p>
+
+11. Press Continue
+
+<p align="center">
+  <img src="./9.JPG">
+</p>
+
+
+
 
 ## FirebaseTrial.py
 
