@@ -172,7 +172,7 @@ FirebaseTrial.py is the script used to:
 
 ### Connect python script to Firebase Database
 
-```ino
+```py
    config = {
   "apiKey": "AIzaSyCLVYhUGxHVeIfLW8DkWPZy7kBu4f1-79o",
   "authDomain": "fota-905e1.firebaseapp.com",
@@ -186,6 +186,21 @@ FirebaseTrial.py is the script used to:
 #FireBase Initialization     
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
+```
+
+### Operations done on firebase
+
+* Set value for a certain chiled, or to create the child  
+
+```py
+  db.child("NodeMCUSemaphore").set(False)
+```
+
+* Get value of a particuler child
+```py
+result = db.child("NodeMCUs").get()
+if (result.val() ==  "No_Target_Connected"):
+  db.child("NodeMCUSemaphore").set(False)
 ```
 
 
