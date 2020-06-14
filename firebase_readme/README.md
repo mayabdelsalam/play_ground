@@ -1,11 +1,11 @@
 # Purpose 
 
-This document describes Firebase and how it works, ELFI gui threads and code flow chart
+This document describes Firebase, FirebaseTrial.py, ELFI gui threads and code flow chart
 
 ## Table of Contents
 * [What is Firebase](#What-is-Firebase)
 * [Firebase Realtime Database](#Firebase-Realtime-Database)
-* [Firebase vs Google Cloud Storage](#Firebase-vs-Google-Cloud-Storage)
+* [FirebaseTrial.py](#FirebaseTrial.py)
 * [Code FlowChart and Logic Explanation](#code-flowchart-and-logic-explanation)
 * [Errors Causes and Solutions](#the-errors-causes-and-solutions)
 
@@ -29,7 +29,7 @@ Firebase is a mobile and web app development platform that provides developers w
   Google Cloud Storage allows world-wide storing and retrieval of any amount of data and at any time. 
   It provides a simple programming interface which enables developers to take advantage of Google's own reliable and fast networking infrastructure to perform data operations in a secure and cost effective manner. 
 
-In conclusion we used Firebase because in our application we needed to instant upload and download between the PC with the elf file and the ELFI GUI, the PC2 that is connected to the target.
+In conclusion we used Firebase because in our application we needed to instantly upload and download between the PC with the elf file and the ELFI GUI, the PC2 that is connected to the target.
 
 
 ## Firebase Realtime Database
@@ -60,7 +60,9 @@ The Realtime Database is really just one big JSON object that the developers can
  
 
 
-## Firebase vs Google Cloud Storage
+## FirebaseTrial.py
+
+FirebaseTrial.py is the script used to upload Marker, Erase, Verify and Data frames to our firebase database, and download and check the responses uploaded to the firebase via the Gateway. 
 <p align="center">
   <img src="/Gateway_Node/Images/FirebaseChannels.PNG">
 </p>
