@@ -112,6 +112,40 @@ The Realtime Database is really just one big JSON object that the developers can
   <img src="./9.JPG">
 </p>
 
+12. Time to register your app
+
+<p align="center">
+  <img src="./10.JPG">
+</p>
+
+13. Add a nickname to your app
+14. Press Register app
+
+<p align="center">
+  <img src="./12.JPG">
+</p>
+
+
+15. Add Firebase SDK, press Next
+
+<p align="center">
+  <img src="./13.JPG">
+</p>
+
+16. Install Firebase CLI, press Next
+
+<p align="center">
+  <img src="./14.JPG">
+</p>
+
+17. Deploy to Firebase Hosting , press Continue to the console
+
+<p align="center">
+  <img src="./15.JPG">
+</p>
+
+
+
 
 
 
