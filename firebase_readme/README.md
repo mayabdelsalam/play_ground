@@ -149,6 +149,8 @@ The Realtime Database is really just one big JSON object that the developers can
 
 
 
+
+
 ## FirebaseTrial.py
 
 FirebaseTrial.py is the script used to:
