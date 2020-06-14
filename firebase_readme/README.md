@@ -68,6 +68,25 @@ The Realtime Database is really just one big JSON object that the developers can
   <img src="./1.JPG">
 </p>
 
+3. Click on add project 
+
+<p align="center">
+  <img src="./2.JPG">
+</p>
+
+4. Write down your project name
+5. Press Continue
+
+<p align="center">
+  <img src="./3.JPG">
+</p>
+
+6.
+
+<p align="center">
+  <img src="./4.JPG">
+</p>
+
 ## FirebaseTrial.py
 
 FirebaseTrial.py is the script used to:
