@@ -9,6 +9,7 @@ This document describes Firebase and how it works, ELFI gui threads and code flo
 * [Code FlowChart and Logic Explanation](#code-flowchart-and-logic-explanation)
 * [Errors Causes and Solutions](#the-errors-causes-and-solutions)
 
+
 ## What is Firebase
 
 <p align="center">
@@ -16,6 +17,21 @@ This document describes Firebase and how it works, ELFI gui threads and code flo
 </p>
 
 Firebase is a mobile and web app development platform that provides developers with a plethora of tools and services to help them develop high-quality apps, grow their user base, and earn more profit.
+
+### Firebase vs Google Cloud Storage
+
+* **Firebase**  : 
+  The Realtime App Platform. 
+  Firebase is a cloud service designed to power real-time, collaborative applications. 
+  Simply add the Firebase library to your application to gain access to a shared data structure; any changes you make to that data are automatically synchronized with the Firebase cloud and with other clients within milliseconds.
+
+* **Google Cloud Storage**  :   
+  Durable and highly available object storage service. 
+  Google Cloud Storage allows world-wide storing and retrieval of any amount of data and at any time. 
+  It provides a simple programming interface which enables developers to take advantage of Google's own reliable and fast networking infrastructure to perform data operations in a secure and cost effective manner. 
+
+In conclusion we used Firebase because in our application we needed to instant upload and download between the PC with the elf file and the ELFI GUI, the PC2 that is connected to the target.
+
 
 ## Firebase Realtime Database
 
