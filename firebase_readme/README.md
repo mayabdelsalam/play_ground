@@ -338,9 +338,6 @@ Application (Firmware over the air) :**
 
 ![](media/ELFI_v2.JPG)
 
->   C:\\Users\\DELL\\Pictures\\Screenshots\\Screenshot (476).png
-
-\\…………………………………………………………………………………………………………………………………………………/
 
 
 * **FlashNewApp**         : Indicates that a New Flashing Sequence is about to start.
