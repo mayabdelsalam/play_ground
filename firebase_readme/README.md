@@ -315,10 +315,10 @@ Application (Firmware over the air) :**
     direct you to the GUI.
 	
 -   The GUI runs three different threads in the back ground.
-*   Progress: which is responsible of updating the progress bar in the GUI with the percentage of how much of the hex file has been flashed.
-*   Import: which is responsible of getting elf path from the Text Browser, the timestamp of the choosen elf file then passing them both to the **CommReceive.c** and then running it. 
+1.  Progress: which is responsible of updating the progress bar in the GUI with the percentage of how much of the hex file has been flashed.
+2.  Import: which is responsible of getting elf path from the Text Browser, the timestamp of the choosen elf file then passing them both to the **CommReceive.c** and then running it. 
             Also it runs **FirebaseTrial.py**.
-*   Import_NodeMCUs: which is responsible of running the **FetchNodeMCUs.py**.
+3.  Import_NodeMCUs: which is responsible of running the **FetchNodeMCUs.py**.
 
 -   Press the Refresh button to choose one of the hardware targets, those targets are registersd through each user that has a gateway. 
     The script that does this functionality is **FetchNodeMCUs.py** by getting values of NodeMCUs chiled in firebase and pasting them in NodeMCUs.txt, leaving them for the GUI to fetch them and add them to the drop down list.  
