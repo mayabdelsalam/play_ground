@@ -7,7 +7,8 @@ This document describes Firebase, python and Firebase, ELFI gui threads and code
 * [Firebase Realtime Database](#Firebase-Realtime-Database)
 * [Python and Firebase](#Python-and-Firebase)
 * [Qt Designer and GUI](#Qt-Designer-and-GUI)
-* [Errors Causes and Solutions](#the-errors-causes-and-solutions)
+* [Threading in Python](#Threading-in-Python)
+* [Steps to operate our GUI and how it workes](#Steps-to-operate-our-GUI-and-how-it-workes)
 
 
 ## What is Firebase
@@ -190,8 +191,6 @@ db = firebase.database()
 
 ### Operations done on firebase
 
-
-
 * Set value for a certain chiled, or to create the child  
 
 ```py
@@ -203,6 +202,8 @@ db.child("NodeMCUSemaphore").set(False)
 result = db.child("NodeMCUs").get()
 if (result.val() ==  "No_Target_Connected"):
 ```
+
+
 
 ## Qt Designer and GUI
 
@@ -306,12 +307,45 @@ GUI**
 1.  Then open File.py and Write Your Logic that you needed to serve your
     application
 
--   ………………………………………………………………………………………………………………………………….
+## Threading in Python
 
-**Third we will discuss our Extra logic added to our GUI to serve our
-Application (Firmware over the air) :**
+### What Is a Thread?
+A thread is a separate flow of execution. This means that your program will have two things happening at once. But for most Python 3 implementations the different threads do not actually execute at the same time: they merely appear to.
 
--   It is the user interface to our project just open **Elfi.exe** and it will
+### Starting a Thread
+
+To start a separate thread, you create a Thread instance and then tell it to .start():
+
+```py
+##FetchNodeMCUs Thread Class  
+class Import_NodeMCUs(QtCore.QThread):
+  ##The initialization function 
+  def __init__(self):
+      QtCore.QThread.__init__(self)
+	    
+  ##The runnable of FetchNodeMCUs py file 
+  def run(self):
+ 
+	call(["python", "FetchNodeMCUs.py"])
+    
+    ##pending the Thread for 2Sec  
+    time.sleep(2)
+    
+```
+
+```py
+##starting the FetchNodeMCUs Thread
+self.fileNodeMCU=Import_NodeMCUs()
+self.fileNodeMCU.start()
+```
+
+## Steps to operate our GUI and how it workes
+
+<p align="center">
+  <img src="/media/ELFI_v2.JPG">
+</p>
+
+-   The user interface to our project just open **Elfi.exe** and it will
     direct you to the GUI.
 	
 -   The GUI runs three different threads in the back ground.
@@ -321,7 +355,7 @@ Application (Firmware over the air) :**
 3.  Import_NodeMCUs: which is responsible of running the **FetchNodeMCUs.py**.
 
 -   Press the Refresh button to choose one of the hardware targets, those targets are registersd through each user that has a gateway. 
-    The script that does this functionality is **FetchNodeMCUs.py** by getting values of NodeMCUs chiled in firebase and pasting them in NodeMCUs.txt, leaving them for the GUI to fetch them and add them to the drop down list.  
+    The script that does this functionality is **FetchNodeMCUs.py** by getting values of NodeMCUs chiled in firebase and pasteing them in NodeMCUs.txt, leaving them for the GUI to fetch and add them to the drop down list.  
 	
 -   Browse the **Elf file as (Main_APP.elf)** to flash it to the target
 
@@ -330,151 +364,19 @@ Application (Firmware over the air) :**
 
 2. **FirebaseTrial.py** It updates the Marker on the firebase for the gateway to fetch it and compare it to the last verision that it has.
    Then it waits for the choosen target to be connected to the firebase server, if it does not, the Status in the GUI will change to **Target not connected**.
-   If it is connected and same Application the gateway will update the Marker on the firebase with "Same_Marker", then **FirebaseTrial.py** will fetch the Marker from the firebase, if it holds "Same_Marker", it will update the **progress.txt** and the GUI will show **Application already exists** Status
+   If it is connected but the choosen elf is the same as the one already flashed the gateway will update the Marker on the firebase with "Same_Marker", then **FirebaseTrial.py** will fetch the Marker from the firebase, if it holds "Same_Marker", it will update the **progress.txt** and the GUI will show **Application already exists** Status.
    If it is not the same application the gateway won't change the Marker on the firebase, and the check in the **FirebaseTrial.py** will lead to the start of the erasing and flashing sequence.
    
-3. Erase and flash sequence is: the **FirebaseTrial.py** updates Frame in firebase with the Erase frame and waits for response, if the response is ok it sends 200 Data frames at a time and waits again for response if it is ok it sends a Verify frame, it repeates the sending of Data and Verify Frames untill all Data frames has benn sent.
-   Also while uploading frames it writes in the **progress.txt** the number of sent data blocks and the total number of blocks that needs to be sent, so the GUI can update its progress bar   
+3. Erase and flash sequence is: the **FirebaseTrial.py** updates Frame in firebase with the Erase frame and waits for response, if the response is ok it sends 200 Data frames at a time and waits again for response if it is ok, it sends a Verify frame, it repeates the sending of Data and Verify Frames untill all Data frames has benn sent.
+   Also while uploading frames it writes in the **progress.txt** the number of sent data blocks and the total number of blocks that needs to be sent, so the GUI can update its progress bar.   
    
-   
-
--   Then GUI Python Script will call the **FirebaseTrial.py** to start
-    Connection with FireBase and this done in parallel Thread with another
-    Thread to update progressbar by the new values added by **FirebaseTrial.py**
-    in **Progress.txt** file and this indicate how many number of frames have
-    been sent and flashed on our target and also updating the Title from setup
-    to n progress to the End according to the number of frames have been flashed
-
--   Then after finishing the process GUI will noticed you that the flashing done
-    .
-<p align="center">
-  <img src="/media/ELFI_v2.JPG">
-</p>
-
+-  After finishing the process, the GUI will notify you that the flashing is done.
+  
 ![](media/ELFI_v2.JPG)
 
 
 
-* **FlashNewApp**         : Indicates that a New Flashing Sequence is about to start.
-* **Frame**               : Holds the Current Frame which is one of Four options **Data Command** or **Erase Command** or **Verification Command** or **Response Command**
-* **Marker**              : Holds the Marker Frame and then the Marker Frame Response
-* **MarkerRQT**           : Inicates is updated when New Flashing Sequence is about to start.
-* **NodeMCUSemaphore**    : NodeMCUs checks that there is no other Node is writing in NodeMCUs channel right now.
-* **NodeMCUs**            : Resgitered NodeMCUs that available for flashing. 
-* **ResponseRQT**         : Flag to indicate that the uploaded command would wait for Response like **Erase Command** or **Verification Command**
-* **SelectedGateway**     : Updates when **GUI** selectes specific target to Flash.
-* **Send**                : **PC Application** sets it True when Uploading Command, **NodeMCU** sets it False after reading the Command, Major use is **Synchronization**.
 
-## Code FlowChart and Logic Explanation.
-<p align="center">
-  <img src="/Gateway_Node/Images/NodeMCU_FlowChart.png">
-</p>
-
-* **NodeMCU** is used as a Gateway, so it's main job is to receive commands through WIFI from Firebase and trasnmit them serially using UART to STM or any microcontroller used.
-* **NodeMCU** Synchrnoization between NodeMCU and PC Application responsible for Flashing Sequence is done through some Flags on Firebase ex) **Send** and **MarkerRQT**
-* **NodeMCU** starts with setting up its Environment like Initializing WatchDog, Connecting to WIFI and Firebase, Setting up capacity of HTTP Transfer and Finally Registering itself on available **NodeMCUs** channel on Firebase
-* **NodeMCU** Loop is Responsible for the Following:
-   * Feeding the WatchDog Timer.
-   * Fetching **FlashNewApp** and **SelectedGateway** Flags from Firebase, if the NodeMCU is the selected Node to be flashed and there is a new software to flash, **NodeMCU** enters Flashing Mode
-   * In **Flashing Mode**, NodeMCU gets important flags from Firebase which are : **Send**, **ResponseRQT** and **MarkerRQT**
-    * IF **MarkerRQT** is True it means that the **PC Application** started communication with the **NodeMCU**, and at that moment **NodeMCU** fires the DIO pin connecting it to STM to notify STM that there is a Flashing New Application Request
-    
-      When **STM** senses the event, it sends back Message to NodeMCU as a Notification that it's now available to receive the new **Marker**, at that moment **NodeMCU** fetches the **Marker** from **Firebase** and sends it STM, then wait for its response
-    
-      When **NodeMCU** receives Marker Response from STM, it checks against it, Positive Response means that the STM would proceed the flashing sequence, and Negative Response means that STM wouldn't proceed as the application already exists.
-    
-    * If **SendRQT** is True and **ResponseRQT** is True, this means that **NodeMCU** will receive Non-Data Command which it either **Erase Command** or **Verify Command**, these types of commands waits for response.
-    
-      So when it receives the command, **NodeMCU** sends it to **STM** and waits for the Response, when it receives Response it uploades the **Frame** to **Firebase** and set **Send** to false as an indicator that **PC Application** has something new to read.
-    
-    * If **SendRQT** is True and **ResponseRQT** is False, this means that **NodeMCU** will receive Data Command, this types of commands doesn't wait for response, and set **Send** to false as an indicator that **PC Application** has something new to read.
-    
-      So when it receives the command, **NodeMCU** sends it to **STM** and waits for **ResponseRQT** to be True -waits for **Verification Command**- , when it receives Response it Verification Command uploades the **Frame** to **Firebase** and set **Send** to false as an indicator that **PC Application** has something new to read.    
-
-## The Errors Causes and Solutions 
-
-### 1- ArduinoJson library not exist 
-
-You should install ArduinoJson version 5.13.5 not the latest version.
-
-### 2- Exception(9) and (28) 
-
-![](/Gateway_Node/Images/6.jpg)
-
-We Started with looking up exception code in the Exception Causes(EXCCAUSE) table to understand what kind of issue it is. We have no clues what it’s about and where it happens, so we used Arduino ESP8266/ESP32 Exception Stack Trace Decoder to find out in which line of application it is triggered.
-After a lot of search and trying many solutions we discovered that the problem was because of some issues in the library we use at (2.1) step (1) so we used Firebase real-time database Arduino library for ESP8266 it’s Google's v 2.9.0, we used it with using the first library 
-
-Steps for using it :
-1. Instalation Using Library Manager At Arduino IDE, go to menu Sketch -> Include Library -> Manage Libraries..
-   In Library Manager Window, search "firebase" in the search form then select "Firebase ESP8266 Client". Click "Install" button.
-2. We added this line to our code and we started to use it in each Firebase API’s       
-   
-   ```ino
-   // Declare the Firebase Data object in the global scope 
-      FirebaseData firebaseData; 
-   ```
-Then we replaced our code with the new way using this object, for Example:
-
-![](/Gateway_Node/Images/7.jpg)
-
-### 3- Exception(29)
-
-After reading it from the exception table and tring many unuseful solutions like using ArduinoJson library we found that when we used firebase database library as solution for problem (3.2), this library has buffer for each object and we should use those lines of code to change the size of the buffer corresponding to our data to avoid data corruption  
- 
-
-```ino
-/* Optional, set the size of BearSSL WiFi to receive and transmit buffers */ 
-       firebaseData.setBSSLBufferSize(4000, 4000); //minimum size is 4096 bytes, maximum size is 16384 bytes
-```
-
-```ino
-/* Optional, set the size of HTTP response buffer */
-       firebaseData.setResponseSize(4000); //minimum size is 400 bytes
-```
-
-And we also added those lines of code to avoid any watchdog timer issues 
- 
-```ino
-   Add in setup()
-   ESP.wdtDisable(); 
-   ESP.wdtEnable(WDTO_8S);
-
-   And in loop()
-   ESP.wdtFeed();
-```
-
-### 4- Corrupted Data 
-
-In our design, we have two kind of frames:
-1. Non Data frame : it contains 8 bytes of data that includes the needed information about the Elf file.
-2. Data frame : it contains 1600 bytes of data from the hex file.
-
-As our project sequence is that the Pc send 8 bytes (Non Data frame) to the cloud in hex format as string and we should receive 8 bytes from it, we discovered after receiving it, that the data size is 16 bytes not 8 bytes, that’s because each byte of Data is represented as 2 string digits in hex format so we needed an algorithm to convert back the 16 bytes (digits) string to the original 8 bytes Data, then send those 8 Data bytes to the targeted MCU.
-![](/Gateway_Node/Images/8.jpg)
-
-To receive the data frame we received it as a string of 3200 hex string digit (the pc sends 200 frames each one of them is 8 bytes so the total number is 1600 byte and we receive those 1600 bytes multiplied by 2 because of each byte is represented as 2 digits in hex format as string so the numbe is 3200 ), we created (TX_string_buffer) and allocated it with 3200 char (3.2k bytes) becouse if it's not initialized with the size corresponding to our data, it will be initialized with the default size and it will corrapt our data
-
-```ino
-String TX_string_buffer = "00000…………”
-```
-Then we had a problem of sending the frames as an array from the PC as firebase Arduino library for esp didn't support receiving an array So we turned to receiving it as string as the size of string in the firebase Arduino library is big and the firebase can also receive and send a large sequence of string
-Another problem is that when we receive the string frames on arduino we want to convert the frames first from string to hex values and to parse the hex values to be added into its place in the Txbuffer[8], so we used the functions strtoul to convert the string and the function substring to parse the string into sizes of 1 byte to be added to the buffer, but the problem was that the function strtoul was taking input parameter as a pointer to constant character
-so we had to use an Arduino function c_str() to convert the string to pointer to constant character then the function substring to parse the string into characters in size of 1 byte then convert them using strtoul to be added to the Txbuffer[index] and finally we send this Data over UART to STM
-
-```ino 
- Firebase.getString(firebaseData, "Frame");
- TX_Need_Resp_Buffer = firebaseData.stringData();
- 
- TxBuffer[0] = strtoul(TX_Need_Resp_Buffer.substring(0,2).c_str()  ,NULL,16);
-     .             
-     .	 
- TxBuffer[7] = strtoul(TX_Need_Resp_Buffer.substring(14,16).c_str(),NULL,16);
- 
- for(int index=0;index<8;index++)
-    {
-              Serial.write(TxBuffer[index]);
-    }
-```
  
 ## References
 
