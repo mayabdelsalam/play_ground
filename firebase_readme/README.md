@@ -312,16 +312,31 @@ GUI**
 Application (Firmware over the air) :**
 
 -   It is the user interface to our project just open **Elfi.exe** and it will
-    direct you to the GUI,
+    direct you to the GUI.
+	
+-   The GUI runs three different threads in the back ground.
+*   Progress: which is responsible of updating the progress bar in the GUI with the percentage of how much of the hex file has been flashed.
+*   Import: which is responsible of getting elf path from the Text Browser, the timestamp of the choosen elf file then passing them both to the **CommReceive.c** and then running it. 
+            Also it runs **FirebaseTrial.py**.
+*   Import_NodeMCUs: which is responsible of running the **FetchNodeMCUs.py**.
 
--   But first must read the **readme.txt** file in this location and make the
-    necessary downloads
+-   Press the Refresh button to choose one of the hardware targets, those targets are registersd through each user that has a gateway. 
+    The script that does this functionality is **FetchNodeMCUs.py** by getting values of NodeMCUs chiled in firebase and pasting them in NodeMCUs.txt, leaving them for the GUI to fetch them and add them to the drop down list.  
+	
+-   Browse the **Elf file as (Main_APP.elf)** to flash it to the target
 
--   After finishing the installation open Elfi.exe and Browse the **Elf file as
-    (Main_APP.elf)** needed to flash it on the target
+-   Press upload and the following will happen:
+1. **CommReceive.c** constructs the Marker Frame from the timestamp passed to it, then parsses the elf file and constructs all the Erase, Data, Verify frames. While it costructs those frames it opens **tst.txt** and pastes those frames in order, starting from the Marker frame.
 
--   Then press upload, and our GUI will call first the **CommReceive.c** to add
-    all commands needed to flash in Text file (**tst.txt**)
+2. **FirebaseTrial.py** It updates the Marker on the firebase for the gateway to fetch it and compare it to the last verision that it has.
+   Then it waits for the choosen target to be connected to the firebase server, if it does not, the Status in the GUI will change to **Target not connected**.
+   If it is connected and same Application the gateway will update the Marker on the firebase with "Same_Marker", then **FirebaseTrial.py** will fetch the Marker from the firebase, if it holds "Same_Marker", it will update the **progress.txt** and the GUI will show **Application already exists** Status
+   If it is not the same application the gateway won't change the Marker on the firebase, and the check in the **FirebaseTrial.py** will lead to the start of the erasing and flashing sequence.
+   
+3. Erase and flash sequence is: the **FirebaseTrial.py** updates Frame in firebase with the Erase frame and waits for response, if the response is ok it sends 200 Data frames at a time and waits again for response if it is ok it sends a Verify frame, it repeates the sending of Data and Verify Frames untill all Data frames has benn sent.
+   Also while uploading frames it writes in the **progress.txt** the number of sent data blocks and the total number of blocks that needs to be sent, so the GUI can update its progress bar   
+   
+   
 
 -   Then GUI Python Script will call the **FirebaseTrial.py** to start
     Connection with FireBase and this done in parallel Thread with another
