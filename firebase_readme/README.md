@@ -341,9 +341,7 @@ self.fileNodeMCU.start()
 
 ## Steps to operate our GUI and how it workes
 
-<p align="center">
-  <img src="/media/ELFI_v2.JPG">
-</p>
+![](media/ELFI_v2.JPG)
 
 -   The user interface to our project just open **Elfi.exe** and it will
     direct you to the GUI.
@@ -372,7 +370,7 @@ self.fileNodeMCU.start()
    
 -  After finishing the process, the GUI will notify you that the flashing is done.
   
-![](media/ELFI_v2.JPG)
+
 
 
 
